@@ -5,7 +5,8 @@ import LockIcon from "@mui/icons-material/Lock";
 import EmailIcon from "@mui/icons-material/Email";
 import PersonIcon from "@mui/icons-material/Person";
 import { motion } from "framer-motion";
-import photo from "../assets/photo1.jpeg";
+import photoEtudiant from "../assets/photo1.jpeg";
+import photoEnseignant from "../assets/photo4.jpg";
 
 const Login = () => {
 
@@ -45,7 +46,7 @@ const Login = () => {
           <Box
             sx={{
               width: "40%",
-              background: `url(${photo})`,
+              background: `url(${role === "etudiant" ? photoEtudiant : photoEnseignant})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               borderTopLeftRadius: 12,
