@@ -7,6 +7,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { motion } from "framer-motion";
 import photoEtudiant from "../assets/learn.jpg";
 import photoEnseignant from "../assets/photo4.jpg";
+import { Link } from "react-router-dom";
 import "./register.css"
 
 const Register = () => {

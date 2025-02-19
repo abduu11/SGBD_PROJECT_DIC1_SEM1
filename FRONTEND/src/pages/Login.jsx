@@ -7,6 +7,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import { motion } from "framer-motion";
 import photoEtudiant from "../assets/photo1.jpeg";
 import photoEnseignant from "../assets/photo4.jpg";
+import { Link } from "react-router-dom";
+import "./login.css";
 
 const Login = () => {
 
@@ -127,6 +129,7 @@ const Login = () => {
             >
               Se connecter
             </Button>
+            <p className="link">Je ne me suis pas encore<Link to="/register"> inscrit.</Link> </p>
           </Box>
         </Card>
       </motion.div>
