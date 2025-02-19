@@ -7,8 +7,9 @@ import PersonIcon from "@mui/icons-material/Person";
 import { motion } from "framer-motion";
 import photoEtudiant from "../assets/photo1.jpeg";
 import photoEnseignant from "../assets/photo4.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
+import axios from "axios";
 
 const Login = () => {
 
@@ -16,6 +17,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); 
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -26,6 +28,25 @@ const Login = () => {
       console.log({ email, password, role }); 
     }
   };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try{
+      const res = await axios.post("http://localhost:5000/api/auth/login", { email, mot_de_passe});
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", res.data.role);
+
+      if (res.data.role == "enseignant") {
+        navigate("/dash_enseignant");
+      } else{
+        navigate("/dash_etudiant");
+      }
+    }catch(err){
+      setError("Identifiants incorrects");
+    }
+  }
 
   return (
     <Grid

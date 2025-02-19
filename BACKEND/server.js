@@ -3,12 +3,15 @@ require("dotenv").config({ path: "./config.env" });
 const express = require("express");
 const cors = require("cors");
 const sequelize = require('./config/database');
+const User = require("./models/User");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("/api/auth", authRoutes);
 
-sequelize.sync().then(() => console.log("Base de donnees synchronisee"));
+sequelize.sync({ alter: true }).then(() => console.log("Base de donnees synchronisee"));
 
 app.get('/', (req, res) => {
     res.send('Serveur Operationnelle !!!');
