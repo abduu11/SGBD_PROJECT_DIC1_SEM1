@@ -17,7 +17,7 @@ const Navbar = () => {
             <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
                 {/* Logo ou Nom de l'Application */}
                 <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                    Mon Application
+                    Tableau de Bord {localStorage.getItem("role")}
                 </Typography>
 
                 {/* Bouton Déconnexion */}

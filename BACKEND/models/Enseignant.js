@@ -11,7 +11,6 @@ const Enseignant = sequelize.define("Enseignant", {
             key: 'id'
         }
     },
-    // Ajoutez des champs spécifiques à Enseignant ici
 }, {
     tableName: "Enseignant",
     timestamps: false,

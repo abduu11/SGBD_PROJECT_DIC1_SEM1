@@ -29,7 +29,7 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="/login" element={<Login />}/>
           <Route path="/register" element={<Register/>}/>
-          <Route path="/dash_enseignant" element={<EtudiantDash/>} />
+          <Route path="/dash_enseignant" element={<EnseignantDash/>} />
           <Route path="/dash_etudiant" element={<EtudiantDash/>}/>
           <Route path="/upload-eaxmen" element={<PrivateRoute roleRequired="enseignant"><UploadExamen /></PrivateRoute>} />
         </Routes>

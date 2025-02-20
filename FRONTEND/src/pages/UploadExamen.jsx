@@ -4,7 +4,7 @@ import { TextField, Button, Card, Typography, Box, CircularProgress } from "@mui
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Alert from "@mui/material/Alert";
 
-const UploadExamen = () => {
+const UploadExamen = ({ onUploadSuccess }) => {
   const [titre, setTitre] = useState("");
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
@@ -35,8 +35,6 @@ const UploadExamen = () => {
         throw new Error("Identifiant de l'enseignant non trouvé");
       }
 
-      console.log(id_enseignant);
-
       formData.append("id_enseignant", id_enseignant);
       const res = await axios.post("http://localhost:5000/api/exams/upload", formData, {
         headers: {
@@ -49,6 +47,9 @@ const UploadExamen = () => {
       setTitre("");
       setDescription("");
       setFile(null);
+      if (onUploadSuccess) {
+        onUploadSuccess();
+      }
     } catch (err) {
       console.error("Erreur lors de l'upload:", err); 
       setError(err.response?.data?.message || "Erreur lors de l'upload");
