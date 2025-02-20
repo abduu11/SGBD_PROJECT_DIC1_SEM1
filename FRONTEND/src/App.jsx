@@ -8,6 +8,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Toaster } from 'react-hot-toast';
 import EnseignantDash from "./pages/EnseignantDash";
 import EtudiantDash from "./pages/EtudiantDash";
+import UploadExamen from "./pages/UploadExamen";
 
 const PrivateRoute = ({ children, roleRequired }) => {
   const token = localStorage.getItem("token");
@@ -30,6 +31,7 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path="/dash_enseignant" element={<EtudiantDash/>} />
           <Route path="/dash_etudiant" element={<EtudiantDash/>}/>
+          <Route path="/upload-eaxmen" element={<PrivateRoute roleRequired="enseignant"><UploadExamen /></PrivateRoute>} />
         </Routes>
       </Router>
     </>

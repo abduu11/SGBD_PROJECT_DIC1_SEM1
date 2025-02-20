@@ -13,7 +13,7 @@ const Navbar = () => {
     };
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: "#ff7f00" }}>
+        <AppBar position="static" sx={{ backgroundColor: "#1976D2" }}>
             <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
                 {/* Logo ou Nom de l'Application */}
                 <Typography variant="h6" sx={{ fontWeight: "bold" }}>
@@ -23,13 +23,13 @@ const Navbar = () => {
                 {/* Bouton Déconnexion */}
                 <Button
                     variant="contained"
-                    color="secondary"
+                    color="primary"
                     startIcon={<LogoutIcon />}
                     onClick={handleLogout}
                     sx={{
                         backgroundColor: "white",
-                        color: "#ff7f00",
-                        "&:hover": { backgroundColor: "#ffb366" },
+                        color: "#1976D2",
+                        "&:hover": { backgroundColor: "#42A5F5" },
                     }}
                 >
                     Déconnexion

@@ -15,34 +15,34 @@ const Login = () => {
 
   const [role, setRole] = useState("etudiant");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); 
+  const [mot_de_passe, setmot_de_passe] = useState(""); 
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!email || !password) {
-      setError("Veuillez remplir tous les champs.");
-    } else {
-      setError(""); 
-      console.log({ email, password, role }); 
-    }
-  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
 
-    try{
-      const res = await axios.post("http://localhost:5000/api/auth/login", { email, mot_de_passe});
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.role);
+    console.log("Données envoyées :", { email, mot_de_passe, role });
 
-      if (res.data.role == "enseignant") {
-        navigate("/dash_enseignant");
-      } else{
-        navigate("/dash_etudiant");
-      }
+    try{
+      if (!email || !mot_de_passe) {
+        setError("Veuillez remplir tous les champs.");
+      } else {
+        setError(""); 
+        console.log({ email, mot_de_passe, role }); 
+
+        const res = await axios.post("http://localhost:5000/api/auth/login", { email, mot_de_passe, role});
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("id_utilisateur", res.data.id_utilisateur);
+        localStorage.setItem("role", res.data.role);
+
+        if (res.data.role == "enseignant") {
+          navigate("/dash_enseignant");
+        } else{
+          navigate("/dash_etudiant");
+        }
+    }
     }catch(err){
       setError("Identifiants incorrects");
     }
@@ -128,7 +128,7 @@ const Login = () => {
               variant="outlined"
               type="password"
               margin="normal"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setmot_de_passe(e.target.value)}
               InputProps={{
                 startAdornment: <LockIcon color="primary" sx={{ mr: 1 }} />,
               }}
@@ -146,7 +146,7 @@ const Login = () => {
               color="primary"
               fullWidth
               sx={{ mt: 2, borderRadius: 2 }}
-              onClick={handleSubmit}
+              onClick={handleLogin}
             >
               Se connecter
             </Button>

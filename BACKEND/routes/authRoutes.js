@@ -1,6 +1,8 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Etudiant = require("../models/Etudiant");
+const Enseignant = require("../models/Enseignant");
 const User = require("../models/User");
 
 const router = express.Router();
@@ -16,6 +18,12 @@ router.post("/register", async (req, res) => {
 
         const newUser = await User.create({ nom, prenom, email, mot_de_passe: hashedPassword, role, date_inscription});
 
+        if (role === "etudiant") {
+            await Etudiant.create({ id: newUser.id });
+        } else if (role === "enseignant") {
+            await Enseignant.create({ id: newUser.id });
+        }
+
         res.status(200).json({ message: "Utilisateur cree avec succes !"});
     } catch (error) {
         res.status(500).json({ message: "Erreur provenant du serveur ",error});
@@ -24,10 +32,10 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     try{
-        const { email, mot_de_passe } = req.body;
+        const { email, mot_de_passe, role } = req.body;
 
-        const user = await User.findOne({ where: { email } });
-        if(!user) return res.status(400).json({ message: "Utilisateur non trouve!"});
+        const user = await User.findOne({ where: { email, role } });
+        if(!user) return res.status(400).json({ message: `${role} non trouve!`});
 
         const correspond = await bcrypt.compare(mot_de_passe, user.mot_de_passe);
         if(!correspond) return res.status(400).json({ message: "Mot de passe incorrect"});
@@ -36,7 +44,7 @@ router.post("/login", async (req, res) => {
             expiresIn: "3h",
         });
 
-        res.json({ token, role: user.role });
+        res.json({ token, role: user.role, id_utilisateur: user.id });
     } catch (error) {
         res.status(500).json({ message: "Erreur survenu au sein du serveur ", error});
     }
