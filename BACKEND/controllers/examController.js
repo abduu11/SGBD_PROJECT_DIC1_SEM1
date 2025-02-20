@@ -59,4 +59,14 @@ const deleteExam = async (req, res) => {
   }
 };
 
-module.exports = { saveExam, getExams, deleteExam };
+const getAllExams = async (req, res) => {
+  try {
+    const exams = await Examen.findAll({order: [['date_creation', 'DESC']]});
+    res.status(200).json(exams);
+  } catch (err) {
+    console.error("Erreur lors de la récupération des examens:", err);
+    res.status(500).json({ message: "Erreur interne du serveur", error: err.message });
+  }
+}
+
+module.exports = { saveExam, getExams, deleteExam, getAllExams };

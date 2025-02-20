@@ -2,8 +2,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-// Crée le répertoire uploads/ si nécessaire, en utilisant un chemin absolu
-const uploadDir = path.join(__dirname, '..', 'uploads'); // __dirname pointe vers le dossier courant (middleware)
+const uploadDir = path.join(__dirname, '..', 'uploads');
 
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true }); // Crée le répertoire uploads/ si il n'existe pas
